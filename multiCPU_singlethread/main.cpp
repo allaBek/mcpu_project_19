@@ -8,6 +8,7 @@
 #include "lodepng.h"
 #include "functions.h"
 
+
 using namespace std;
 
 // Main function is the only runnable part of the application.
@@ -37,16 +38,16 @@ int main()
     acquireImage(fileName2, width, height, img2);
 
 	// Down-sampling and getting the gray-scale image by processing the raw image data.
-	grayDownSampled(img1, grayImg1);
-    grayDownSampled(img2, grayImg2);
+	grayDownSampled(img1, grayImg1, height, width);
+    grayDownSampled(img2, grayImg2, height, width);
 
 	// Clearing unnecessory vectors to free up memory.
 	img1.clear(); img1.shrink_to_fit();
 	img2.clear(); img2.shrink_to_fit();
 
 	// Converting images from one dimensional vector to 2D vector.
-	toDoubleDimension(grayImg1, sample1);
-    toDoubleDimension(grayImg2, sample2);
+	toDoubleDimension(grayImg1, sample1, height / 4, width / 4);
+    toDoubleDimension(grayImg2, sample2, height / 4, width / 4);
 
 	// Clearing unnecessory vectors to free up memory.
 	grayImg1.clear(); grayImg1.shrink_to_fit();
@@ -70,7 +71,7 @@ int main()
 	// Post-processing on data using two different methods.
 	occlusion_filling_x(zncc3_x_filling);
 	occlusion_filling_y(zncc3_y_filling);
-	//creatinga  copy of zncc3_x_filling to keep it for later in ouputing images
+	//creating a  copy of zncc3_x_filling to keep it for later in ouputing images
 
 	// Uniting two results into one to reach final conclusion.
 	two_maps_to_one(zncc3_x_filling_copy, zncc3_y_filling);
